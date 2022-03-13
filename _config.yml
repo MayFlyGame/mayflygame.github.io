@@ -104,7 +104,8 @@ theme: keep
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/MayFlyGame/mayflygame.github.io
+  #repo: https://MayflyGame@github.com/MayFlyGame/mayflygame.github.io
+  repo: git@mayflygame.github.com:MayFlyGame/mayflygame.github.io.git
   branch: master
-  name: MayFlyGame
+  name: MayflyGame
   email: mayflygame@foxmail.com
