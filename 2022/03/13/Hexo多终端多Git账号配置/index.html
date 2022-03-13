@@ -9,7 +9,7 @@
     
     <title>
         
-            Hello World |
+            Hexo多终端多Git账号配置 |
         
         Mayfly Game
     </title>
@@ -132,7 +132,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Hello World</span>
+            <span class="title-hover-animation">Hexo多终端多Git账号配置</span>
         </div>
 
         
@@ -150,7 +150,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-02-15 11:11:20
+        <i class="fas fa-edit"></i>&nbsp;2022-03-13 17:20:51
     </span>
     
     
@@ -158,12 +158,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>75 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>510 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
         </span>
     
     
@@ -179,15 +179,24 @@
         
 
         <div class="article-content markdown-body">
-            <p>Welcome to <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/" >Hexo<i class="fas fa-external-link-alt"></i></a>! This is your very first post. Check <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >documentation<i class="fas fa-external-link-alt"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fas fa-external-link-alt"></i></a> or you can ask me on <a class="link"   target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fas fa-external-link-alt"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
+            <h1 id="Hexo多终端多Git账号配置"><a href="#Hexo多终端多Git账号配置" class="headerlink" title="Hexo多终端多Git账号配置"></a>Hexo多终端多Git账号配置</h1><h1 id="1-Hexo多终端方案"><a href="#1-Hexo多终端方案" class="headerlink" title="1. Hexo多终端方案"></a>1. Hexo多终端方案</h1><h2 id="1-1-解决思路"><a href="#1-1-解决思路" class="headerlink" title="1.1 解决思路"></a>1.1 解决思路</h2><p>本质的思路就是在对应的Repository下（例如我的是：<a class="link"   target="_blank" rel="noopener" href="http://mayflygame.github.io/" >mayflygame.github.io<i class="fas fa-external-link-alt"></i></a>）维护master和一个branch（branch的名字可以命名为hexo）</p>
+<ul>
+<li>主干：master，用于存放hexo生成的所有静态页面，即你要展示的网站页面。</li>
+<li>分支：hexo（设置为default分支），存放的就是hexo对应的所有文件，例如_config.yml，package.json等文件，source, themes, scaffolds等文件夹。</li>
+</ul>
+<h2 id="1-2-如何使用？"><a href="#1-2-如何使用？" class="headerlink" title="1.2 如何使用？"></a>1.2 如何使用？</h2><p>使用的时候，新建markdown文件，编辑文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &quot;new blog&quot;</span><br></pre></td></tr></table></figure>
+<p>在本地对博客进行修改（添加新博文、修改样式等等）后，通过下面的流程进行管理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m &quot;...&quot;</span><br><span class="line">$ git push origin hexo #指令将改动推送到GitHub(此时当前分支应为hexo)</span><br></pre></td></tr></table></figure>
+<p>最后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g -d # 将hexo生成的静态页面发布到master上。</span><br></pre></td></tr></table></figure>
+<h1 id="2-多Github账号问题"><a href="#2-多Github账号问题" class="headerlink" title="2. 多Github账号问题"></a>2. 多Github账号问题</h1><p>默认通过hexo g -d能够直接发布到对应的git仓库，但是如果电脑上配置了两个git账号。就会出现问题：</p>
+<p>例如需要你输入用户名/密码，但是又回因为安全问题等报错，如下图。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">remote: Support <span class="keyword">for</span> password authentication was removed on August <span class="number">13</span>, <span class="number">2021.</span> Please use a personal access token instead.</span><br><span class="line">remote: Please see https:<span class="comment">//github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.</span></span><br><span class="line">fatal: Authentication failed <span class="keyword">for</span> <span class="string">&#x27;https://github.com/MayFlyGame/mayflygame.github.io/&#x27;</span></span><br><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (<span class="regexp">/Users/g</span>odwit/Blog/mayflygame.github.io/node_modules/hexo-util/lib/spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (node:events:<span class="number">520</span>:<span class="number">28</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (node:internal/child_process:<span class="number">291</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span></span><br></pre></td></tr></table></figure>
+<p>可以考虑通过设置token来解决。</p>
+<p>这里提供个简单的解决方案，hexo的_config.yml文件，在配置repo的时候，参考如下配置</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">103 # Deployment</span><br><span class="line">104 ## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line"><span class="number">105</span> deploy:</span><br><span class="line"><span class="number">106</span>   type: git</span><br><span class="line">107   # repo：git@用户名.github.com:用户名/xxx.github.io.git</span><br><span class="line"><span class="number">108</span>   repo: git@mayflygame.github.com:MayFlyGame/mayflygame.github.io.git</span><br><span class="line"><span class="number">109</span>   branch: master</span><br><span class="line"><span class="number">110</span>   name: MayflyGame</span><br><span class="line"><span class="number">111</span>   email: mayflygame@foxmail.com</span><br></pre></td></tr></table></figure>
+<p>以上。</p>
 
         </div>
 
@@ -195,11 +204,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：Hello World</li>
+        <li>Post title：Hexo多终端多Git账号配置</li>
         <li>Post author：Mayfly Game</li>
-        <li>Create time：2021-02-15 11:11:20</li>
+        <li>Create time：2022-03-13 17:20:51</li>
         <li>
-            Post link：https://www.mayflygame.com/2021/02/15/hello-world/
+            Post link：https://www.mayflygame.com/2022/03/13/Hexo多终端多Git账号配置/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -213,21 +222,21 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/03/13/Hexo%E5%A4%9A%E7%BB%88%E7%AB%AF%E5%A4%9AGit%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/"
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/02/15/hello-world/"
                         >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Hexo多终端多Git账号配置</span>
-                                <span class="post-nav-item">Prev posts</span>
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
                             </span>
                         </a>
                     </div>
-                
                 
             </div>
         
@@ -426,7 +435,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%A4%9A%E7%BB%88%E7%AB%AF%E5%A4%9AGit%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Hexo多终端多Git账号配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hexo%E5%A4%9A%E7%BB%88%E7%AB%AF%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">1. Hexo多终端方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 解决思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 如何使用？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%A4%9AGithub%E8%B4%A6%E5%8F%B7%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">2. 多Github账号问题</span></a></li></ol>
     </div>
 </div>
         </aside>

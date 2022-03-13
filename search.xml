@@ -14,4 +14,27 @@
 <p>More info: <a class="link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Hexo多终端多Git账号配置</title>
+    <url>/2022/03/13/Hexo%E5%A4%9A%E7%BB%88%E7%AB%AF%E5%A4%9AGit%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="Hexo多终端多Git账号配置"><a href="#Hexo多终端多Git账号配置" class="headerlink" title="Hexo多终端多Git账号配置"></a>Hexo多终端多Git账号配置</h1><h1 id="1-Hexo多终端方案"><a href="#1-Hexo多终端方案" class="headerlink" title="1. Hexo多终端方案"></a>1. Hexo多终端方案</h1><h2 id="1-1-解决思路"><a href="#1-1-解决思路" class="headerlink" title="1.1 解决思路"></a>1.1 解决思路</h2><p>本质的思路就是在对应的Repository下（例如我的是：<a class="link"   href="http://mayflygame.github.io/" >mayflygame.github.io<i class="fas fa-external-link-alt"></i></a>）维护master和一个branch（branch的名字可以命名为hexo）</p>
+<ul>
+<li>主干：master，用于存放hexo生成的所有静态页面，即你要展示的网站页面。</li>
+<li>分支：hexo（设置为default分支），存放的就是hexo对应的所有文件，例如_config.yml，package.json等文件，source, themes, scaffolds等文件夹。</li>
+</ul>
+<h2 id="1-2-如何使用？"><a href="#1-2-如何使用？" class="headerlink" title="1.2 如何使用？"></a>1.2 如何使用？</h2><p>使用的时候，新建markdown文件，编辑文章。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new &quot;new blog&quot;</span><br></pre></td></tr></table></figure>
+<p>在本地对博客进行修改（添加新博文、修改样式等等）后，通过下面的流程进行管理。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m &quot;...&quot;</span><br><span class="line">$ git push origin hexo #指令将改动推送到GitHub(此时当前分支应为hexo)</span><br></pre></td></tr></table></figure>
+<p>最后执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo g -d # 将hexo生成的静态页面发布到master上。</span><br></pre></td></tr></table></figure>
+<h1 id="2-多Github账号问题"><a href="#2-多Github账号问题" class="headerlink" title="2. 多Github账号问题"></a>2. 多Github账号问题</h1><p>默认通过hexo g -d能够直接发布到对应的git仓库，但是如果电脑上配置了两个git账号。就会出现问题：</p>
+<p>例如需要你输入用户名/密码，但是又回因为安全问题等报错，如下图。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">remote: Support <span class="keyword">for</span> password authentication was removed on August <span class="number">13</span>, <span class="number">2021.</span> Please use a personal access token instead.</span><br><span class="line">remote: Please see https:<span class="comment">//github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.</span></span><br><span class="line">fatal: Authentication failed <span class="keyword">for</span> <span class="string">&#x27;https://github.com/MayFlyGame/mayflygame.github.io/&#x27;</span></span><br><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (<span class="regexp">/Users/g</span>odwit/Blog/mayflygame.github.io/node_modules/hexo-util/lib/spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (node:events:<span class="number">520</span>:<span class="number">28</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (node:internal/child_process:<span class="number">291</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span></span><br></pre></td></tr></table></figure>
+<p>可以考虑通过设置token来解决。</p>
+<p>这里提供个简单的解决方案，hexo的_config.yml文件，在配置repo的时候，参考如下配置</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">103 # Deployment</span><br><span class="line">104 ## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line"><span class="number">105</span> deploy:</span><br><span class="line"><span class="number">106</span>   type: git</span><br><span class="line">107   # repo：git@用户名.github.com:用户名/xxx.github.io.git</span><br><span class="line"><span class="number">108</span>   repo: git@mayflygame.github.com:MayFlyGame/mayflygame.github.io.git</span><br><span class="line"><span class="number">109</span>   branch: master</span><br><span class="line"><span class="number">110</span>   name: MayflyGame</span><br><span class="line"><span class="number">111</span>   email: mayflygame@foxmail.com</span><br></pre></td></tr></table></figure>
+<p>以上。</p>
+]]></content>
+  </entry>
 </search>
