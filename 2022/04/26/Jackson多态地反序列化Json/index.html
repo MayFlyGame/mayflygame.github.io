@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Mayfly Game">
+    
+    <title>
+        
+            Jackson多态地反序列化Json |
+        
+        Mayfly Game
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Life is short, live it!"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.0"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                Mayfly Game
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Jackson多态地反序列化Json</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Mayfly Game</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-04-26 21:45:39
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>891 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Jackson多态地反序列化Json"><a href="#Jackson多态地反序列化Json" class="headerlink" title="Jackson多态地反序列化Json"></a>Jackson多态地反序列化Json</h1><p>Java里面，我们可以使用Jackson将一个json字符串简单地反序列化为一个Java对象，但是，如何多态地进行反序列化呢？</p>
+<p>可以考虑使用@JsonTypeInfo这个注解。网上有很多教程（例如：<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/96108902" >https://zhuanlan.zhihu.com/p/96108902<i class="fas fa-external-link-alt"></i></a>），可以参考。</p>
+<p>比较主流地用法是，显式地或隐式地通过在类里面定义一个标志（例如下面json格式里面地的type，为cat时就解析为Cat对象；为dog时就解析为Dog对象)，然后通过@JsonTypeInfo.property来指定标志为type。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;type&quot;</span>:<span class="string">&quot;cat&quot;</span> ,</span><br><span class="line">    <span class="string">&quot;favoriteToy&quot;</span>: <span class="string">&quot;fish&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;dog&quot;</span> ,</span><br><span class="line">    <span class="string">&quot;breed&quot;</span>:<span class="string">&quot;Golden retriever&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么，我的需求是，不通过property来区分怎么办？（也不可通过className，因为这样序列化出来的字符串会有className之类的关键字, 例如：{“animals”:[{“<strong>className</strong>“:”dog1”,”breed”:”Golden retriever”},{“<strong>className</strong>“:”cat1”,”favoriteToy”:”fish”}]}），我只想通过类的变量名来区分如何处理？</p>
+<p>例如下面的类和json字符串（注意，json字符串没有type，没有classname），如果里面有favoriteToy，就解析为Cat；如果里面有breed，就解析为Dog。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lqbz;  <span class="comment">// 乱7八糟</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String favoriteToy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String breed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;animals&quot;</span>:[</span><br><span class="line">	&#123;<span class="attr">&quot;lqbz&quot;</span>:<span class="string">&quot;wtf&quot;</span>,<span class="attr">&quot;breed&quot;</span>:<span class="string">&quot;Golden retriever&quot;</span>&#125;, ## 有breed，解析为Dog</span><br><span class="line">  &#123;&quot;lqbz&quot;:&quot;wtf&quot;,&quot;favoriteToy&quot;:&quot;fish&quot;&#125;]    ## 有favoriteToy, 解析为Cat</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，这个有非常多的解决方案，这里仅提供一种目前我认为比较优秀的解决方案（前提是：要使用**jackson2.12+**版本）</p>
+<h2 id="解决方案，使用-JsonTypeInfo-Id-DEDUCTION（-注意：使用jackson2-12-版本），完整代码如下："><a href="#解决方案，使用-JsonTypeInfo-Id-DEDUCTION（-注意：使用jackson2-12-版本），完整代码如下：" class="headerlink" title="解决方案，使用@JsonTypeInfo.Id.DEDUCTION（!!!注意：使用jackson2.12+版本），完整代码如下："></a>解决方案，使用@JsonTypeInfo.Id.DEDUCTION（!!!注意：使用jackson2.12+版本），完整代码如下：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  我这里本身的需求是，有些json是需要解析为Animal的(Animal可以实例化），既不是Dog，也不是Cat。</span></span><br><span class="line"><span class="comment">  所以增加defaultImpl = Animal.class一项，而且Animal没有声明为abstract。</span></span><br><span class="line"><span class="comment">  如果不需要解析为Animal，那就把defaultImpl去掉，并且加上abstract关键字</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">@JsonIgnoreProperties(ignoreUnknown = true)</span></span><br><span class="line"><span class="meta">@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION, defaultImpl = Animal.class)</span></span><br><span class="line"><span class="meta">@JsonSubTypes(&#123;</span></span><br><span class="line"><span class="meta">        @JsonSubTypes.Type(Dog.class),</span></span><br><span class="line"><span class="meta">        @JsonSubTypes.Type(Cat.class) &#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lqbz;  <span class="comment">// 乱7八糟</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Animal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Animal</span><span class="params">(String lqbz)</span> </span>&#123;</span><br><span class="line">        setLqbz(lqbz);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLqbz</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lqbz;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLqbz</span><span class="params">(String lqbz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lqbz = lqbz;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Cat/Dog的定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String favoriteToy;</span><br><span class="line">	  <span class="function"><span class="keyword">public</span> <span class="title">Cat</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cat</span><span class="params">(String lqbz, String favoriteToy)</span> </span>&#123;</span><br><span class="line">        setLqbz(lqbz);</span><br><span class="line">        setFavoriteToy(favoriteToy);</span><br><span class="line">    &#125;</span><br><span class="line">	  <span class="function"><span class="keyword">public</span> String <span class="title">getFavoriteToy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> favoriteToy;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFavoriteToy</span><span class="params">(String favoriteToy)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.favoriteToy = favoriteToy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String breed;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Dog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Dog</span><span class="params">(String lqbz, String breed)</span> </span>&#123;</span><br><span class="line">        setLqbz(lqbz);</span><br><span class="line">        setBreed(breed);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getBreed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> breed;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBreed</span><span class="params">(String breed)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.breed = breed;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        Animal myAnn = <span class="keyword">new</span> Animal(<span class="string">&quot;ann&quot;</span>);</span><br><span class="line">        Animal myDog = <span class="keyword">new</span> Dog(<span class="string">&quot;ruffus&quot;</span>,<span class="string">&quot;english shepherd&quot;</span>);</span><br><span class="line">        Animal myCat = <span class="keyword">new</span> Cat(<span class="string">&quot;goya&quot;</span>, <span class="string">&quot;mice&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String annJson = objectMapper.writeValueAsString(myAnn);</span><br><span class="line">            System.out.println(<span class="string">&quot;annJson: &quot;</span> + annJson );  <span class="comment">// annJson: &#123;&quot;lqbz&quot;:&quot;ann&quot;&#125;</span></span><br><span class="line">            Animal deAnn = objectMapper.readValue( annJson, Animal.class );</span><br><span class="line">            System.out.println( <span class="string">&quot;Des object: &quot;</span> + deAnn );  <span class="comment">// Des object: com.grapetec.vulcan.Animal@77888435</span></span><br><span class="line">            System.out.println( <span class="string">&quot;Des class: &quot;</span> + deAnn.getClass().getSimpleName() ); <span class="comment">// Des class: Animal</span></span><br><span class="line">            System.out.println(<span class="string">&quot;***************************************&quot;</span>);</span><br><span class="line">            String dogJson = objectMapper.writeValueAsString(myDog);</span><br><span class="line">            System.out.println(<span class="string">&quot;dogJson: &quot;</span> + dogJson);  <span class="comment">// dogJson: &#123;&quot;lqbz&quot;:&quot;ruffus&quot;,&quot;breed&quot;:&quot;english shepherd&quot;&#125;</span></span><br><span class="line">            Animal deserializedDog = objectMapper.readValue(dogJson, Animal.class);</span><br><span class="line">            System.out.println(<span class="string">&quot;Deserialized dogJson Class: &quot;</span> + deserializedDog.getClass().getSimpleName()); <span class="comment">// Deserialized dogJson Class: Dog</span></span><br><span class="line">            System.out.println(<span class="string">&quot;***************************************&quot;</span>);</span><br><span class="line">            String catJson = objectMapper.writeValueAsString(myCat);</span><br><span class="line">            System.out.println(<span class="string">&quot;catJson: &quot;</span> + catJson); <span class="comment">// catJson: &#123;&quot;lqbz&quot;:&quot;goya&quot;,&quot;favoriteToy&quot;:&quot;mice&quot;&#125;</span></span><br><span class="line">            Animal deseriliazedCat = objectMapper.readValue(catJson, Animal.class);</span><br><span class="line">            System.out.println(<span class="string">&quot;Deserialized catJson Class: &quot;</span> + deseriliazedCat.getClass().getSimpleName()); <span class="comment">// Deserialized catJson Class: Cat</span></span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Jackson多态地反序列化Json</li>
+        <li>Post author：Mayfly Game</li>
+        <li>Create time：2022-04-26 21:45:39</li>
+        <li>
+            Post link：https://www.mayflygame.com/2022/04/26/Jackson多态地反序列化Json/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/03/13/Hexo%E5%A4%9A%E7%BB%88%E7%AB%AF%E5%A4%9AGit%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hexo多终端多Git账号配置</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'eTJNtjwLG3WU6vo2R8rdpgBg-gzGzoHsz',
+                    appKey: 'C6u43EDPpMkduG7tNj0YlHVy',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Mayfly Game';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Mayfly Game</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.0</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jackson%E5%A4%9A%E6%80%81%E5%9C%B0%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96Json"><span class="nav-number">1.</span> <span class="nav-text">Jackson多态地反序列化Json</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%8C%E4%BD%BF%E7%94%A8-JsonTypeInfo-Id-DEDUCTION%EF%BC%88-%E6%B3%A8%E6%84%8F%EF%BC%9A%E4%BD%BF%E7%94%A8jackson2-12-%E7%89%88%E6%9C%AC%EF%BC%89%EF%BC%8C%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">解决方案，使用@JsonTypeInfo.Id.DEDUCTION（!!!注意：使用jackson2.12+版本），完整代码如下：</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
