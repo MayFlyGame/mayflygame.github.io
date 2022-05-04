@@ -130,4 +130,15 @@
 <p>能够看到正常输出。</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">✘ godwit@Firebase  ~<span class="regexp">/Source/</span>openjdk-<span class="number">18</span>+<span class="number">36</span>/build/macosx-aarch64-server-slowdebug/jdk/bin  java -version</span><br><span class="line">openjdk version <span class="string">&quot;1.8.0_322&quot;</span></span><br><span class="line">OpenJDK Runtime Environment (Zulu <span class="number">8.60</span><span class="number">.0</span><span class="number">.21</span>-CA-macos-aarch64) (build <span class="number">1.8</span><span class="number">.0_322</span>-b06)</span><br><span class="line">OpenJDK <span class="number">64</span>-Bit Server VM (Zulu <span class="number">8.60</span><span class="number">.0</span><span class="number">.21</span>-CA-macos-aarch64) (build <span class="number">25.322</span>-b06, mixed mode)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
   </entry>
+  <entry>
+    <title>JDK源代码阅读</title>
+    <url>/2022/05/04/JDK%E6%BA%90%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/</url>
+    <content><![CDATA[<h1 id="JDK源码阅读"><a href="#JDK源码阅读" class="headerlink" title="JDK源码阅读"></a>JDK源码阅读</h1><h1 id="1-新建项目"><a href="#1-新建项目" class="headerlink" title="1. 新建项目"></a>1. 新建项目</h1><h2 id="1-1-建立个Java项目"><a href="#1-1-建立个Java项目" class="headerlink" title="1.1 建立个Java项目"></a>1.1 建立个Java项目</h2><p>利用Intellij简单建个Java项目</p>
+<h1 id="2-设置SDK"><a href="#2-设置SDK" class="headerlink" title="2. 设置SDK"></a>2. 设置SDK</h1><p><img src="https://raw.githubusercontent.com/MayFlyGame/ImageHost/master/imgAddSelfMadeJDK18.png" alt="Untitled"></p>
+<p><img src="https://raw.githubusercontent.com/MayFlyGame/ImageHost/master/imgSetSelfMadeJDK18Source.png" alt="Untitled"></p>
+<h1 id="3-将source代码拷贝到项目里面"><a href="#3-将source代码拷贝到项目里面" class="headerlink" title="3. 将source代码拷贝到项目里面"></a>3. 将source代码拷贝到项目里面</h1><p>在目录：/Users/godwit/Source/openjdk-18+36/build/macosx-aarch64-server-slowdebug/images/jdk/lib下找到src.zip文件，</p>
+<p>将src.zip文件解压，放到与src同级，即可使用。</p>
+<p><img src="https://raw.githubusercontent.com/MayFlyGame/ImageHost/master/imgAddJDKSrcToJavaProj.png" alt="Untitled"></p>
+]]></content>
+  </entry>
 </search>
