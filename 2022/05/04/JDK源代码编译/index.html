@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Mayfly Game">
+    
+    <title>
+        
+            JDK源代码编译 |
+        
+        Mayfly Game
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Life is short, live it!"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.0"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days age","week":"%s weeks age","month":"%s months age","year":"%s years age"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                Mayfly Game
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">JDK源代码编译</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Mayfly Game</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2022-05-04 21:23:08
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="JDK源码编译"><a href="#JDK源码编译" class="headerlink" title="JDK源码编译"></a>JDK源码编译</h1><h1 id="1-源码准备"><a href="#1-源码准备" class="headerlink" title="1. 源码准备"></a>1. 源码准备</h1><h2 id="1-1-源码版本及下载"><a href="#1-1-源码版本及下载" class="headerlink" title="1.1 源码版本及下载"></a>1.1 源码版本及下载</h2><p>确定要编译哪个版本的JDK，有两种方法：</p>
+<ul>
+<li>Github：<a class="link"   target="_blank" rel="noopener" href="https://github.com/openjdk/jdk" >https://github.com/openjdk/jdk<i class="fas fa-external-link-alt"></i></a> 可以从github找到对应的版本来下载</li>
+<li>Java.Net: <a class="link"   target="_blank" rel="noopener" href="https://jdk.java.net/java-se-ri/18" >https://jdk.java.net/java-se-ri/18<i class="fas fa-external-link-alt"></i></a> 也可以去次网站直接下载源码压缩包。</li>
+</ul>
+<p>我这里是通过第二种方式下载的，下载的是：openjdk_18+36版本。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">godwit@Firebase  ~/Source  ll</span><br><span class="line">total <span class="number">339496</span></span><br><span class="line">drwxr-xr-x@ <span class="number">19</span> godwit  staff   608B  <span class="number">5</span>  <span class="number">2</span> <span class="number">22</span>:<span class="number">15</span> openjdk-<span class="number">18</span>+<span class="number">36</span></span><br><span class="line">-rw-r--r--@  <span class="number">1</span> godwit  staff   166M  <span class="number">5</span>  <span class="number">2</span> <span class="number">22</span>:<span class="number">11</span> openjdk-<span class="number">18</span>+36_src.zip</span><br><span class="line"> godwit@Firebase  ~/Source  cd openjdk-<span class="number">18</span>+<span class="number">36</span></span><br><span class="line"> godwit@Firebase  ~<span class="regexp">/Source/</span>openjdk-<span class="number">18</span>+<span class="number">36</span> </span><br></pre></td></tr></table></figure>
+<h1 id="2-环境准备"><a href="#2-环境准备" class="headerlink" title="2. 环境准备"></a>2. 环境准备</h1><h2 id="2-1-Bootstrap-JDK"><a href="#2-1-Bootstrap-JDK" class="headerlink" title="2.1 Bootstrap JDK"></a>2.1 Bootstrap JDK</h2><p>假设需要编译大版本号为N的JDK，那么我们需要另外准备一个大版本号至少为N-1的，已经编译好的JDK，这是因为OpenJDK由多个部分构成，其中一部分（HotSpot）代码是用C、C++编写，而更多的代码是用Java语言来实现的。因此编译这些Java代码就需要使用另外一个编译期可用的JDK，官方称这个为Bootstrap JDK。</p>
+<p>我本机已经安装了JDK环境，直接使用即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">godwit@Firebase  ~  java -version</span><br><span class="line">java 17.0.2 2022-01-18 LTS</span><br><span class="line">Java(TM) SE Runtime Environment (build 17.0.2+8-LTS-86)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 17.0.2+8-LTS-86, mixed mode, sharing)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-其他依赖库"><a href="#2-2-其他依赖库" class="headerlink" title="2.2 其他依赖库"></a>2.2 其他依赖库</h2><p>缺少什么，直接brew install xxx即可。</p>
+<ul>
+<li>FreeType：</li>
+<li>Autoconf：</li>
+<li>ccache：</li>
+<li>clang/clang++: XCode自带，所以没有额外配置安装。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">godwit@Firebase  ~  clang --version</span><br><span class="line">Apple clang version 13.1.6 (clang-1316.0.21.2.3)</span><br><span class="line">Target: arm64-apple-darwin21.4.0</span><br><span class="line">Thread model: posix</span><br><span class="line">InstalledDir: /Library/Developer/CommandLineTools/usr/bin</span><br><span class="line"></span><br><span class="line">godwit@Firebase  ~  clang++ --version</span><br><span class="line">Apple clang version 13.1.6 (clang-1316.0.21.2.3)</span><br><span class="line">Target: arm64-apple-darwin21.4.0</span><br><span class="line">Thread model: posix</span><br><span class="line">InstalledDir: /Library/Developer/CommandLineTools/usr/bin</span><br><span class="line"></span><br><span class="line">godwit@Firebase  ~  autoconf --version</span><br><span class="line">autoconf (GNU Autoconf) 2.71</span><br><span class="line">Copyright (C) 2021 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+/Autoconf: GNU GPL version 3 or later</span><br><span class="line">&lt;https://gnu.org/licenses/gpl.html&gt;, &lt;https://gnu.org/licenses/exceptions.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">Written by David J. MacKenzie and Akim Demaille.</span><br><span class="line"></span><br><span class="line">godwit@Firebase  ~  make --version</span><br><span class="line">GNU Make 3.81</span><br><span class="line">Copyright (C) 2006  Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the <span class="built_in">source</span> <span class="keyword">for</span> copying conditions.</span><br><span class="line">There is NO warranty; not even <span class="keyword">for</span> MERCHANTABILITY or FITNESS FOR A</span><br><span class="line">PARTICULAR PURPOSE.</span><br><span class="line"></span><br><span class="line">This program built <span class="keyword">for</span> i386-apple-darwin11.3.0</span><br><span class="line"></span><br><span class="line">godwit@Firebase  ~  freetype-config --ftversion</span><br><span class="line">2.12.0</span><br></pre></td></tr></table></figure>
+<h1 id="3-编译"><a href="#3-编译" class="headerlink" title="3. 编译"></a>3. 编译</h1><h2 id="3-1-配置"><a href="#3-1-配置" class="headerlink" title="3.1 配置"></a>3.1 配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --with-debug-level=slowdebug参数是为了显示更多调试信息.debug level有4种：release, fastdebug, slowdebug, optimized. 默认是 release</span></span><br><span class="line"><span class="comment"># --with-native-debug-symbols hotspot编译之后是一个名为libjvm.so的动态库,在java命令里通过dlopen加载,如果不加上--with-native-debug-symbols=internal,需要手动解压jdk/lib/amd64/server里的libjvm.debuginfo,或者指定动态库路径,调试起来会很复杂.</span></span><br><span class="line"><span class="comment"># --with-jvm-variants=server：仅包含Server模式</span></span><br><span class="line"><span class="comment"># --disable-warnings-as-errors：因为tag版本可能还不是很完美，存在warning，所以这里允许warning的存在</span></span><br><span class="line">$ bash ./configure  --with-debug-level=slowdebug --with-native-debug-symbols=internal --with-jvm-variants=server --enable-dtrace --disable-warnings-as-errors</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="3-1-1-错误1-No-xcodebuild-tool-and-no-system-framework-headers-found"><a href="#3-1-1-错误1-No-xcodebuild-tool-and-no-system-framework-headers-found" class="headerlink" title="3.1.1 错误1 - No xcodebuild tool and no system framework headers found"></a>3.1.1 错误1 - No xcodebuild tool and no system framework headers found</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">checking <span class="built_in">which</span> variants of the JVM to build... server</span><br><span class="line">checking <span class="keyword">if</span> absolute paths should be allowed <span class="keyword">in</span> the build output... no, release build</span><br><span class="line">checking <span class="keyword">for</span> sdk name...</span><br><span class="line">configure: error: No xcodebuild tool and no system framework headers found, use --with-sysroot or --with-sdk-name to provide a path to a valid SDK</span><br><span class="line">/Users/godwit/Source/openjdk-18+36/build/.configure-support/generated-configure.sh: line 84: 5: Bad file descriptor</span><br><span class="line">configure exiting with result code 1</span><br><span class="line"> ✘ godwit@Firebase  ~/Source/openjdk-18+36 </span><br><span class="line"><span class="comment">#### 解决方案如下：</span></span><br><span class="line"> ✘ godwit@Firebase  ~/Source/openjdk-18+36  sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span><br><span class="line">Password:</span><br><span class="line"> godwit@Firebase  ~/Source/openjdk-18+36  </span><br></pre></td></tr></table></figure>
+<h3 id="3-1-2-错误2-error-parameter-‘SizeOfTag’-set-but-not-used"><a href="#3-1-2-错误2-error-parameter-‘SizeOfTag’-set-but-not-used" class="headerlink" title="3.1.2 错误2 - error: parameter ‘SizeOfTag’ set but not used"></a>3.1.2 错误2 - error: parameter ‘SizeOfTag’ set but not used</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">=== Output <span class="keyword">from</span> failing command(s) repeated here ===</span><br><span class="line">* For target support_native_java.desktop_liblcms_cmstypes.o:</span><br><span class="line">/Users/godwit/Source/openjdk-<span class="number">18</span>+<span class="number">36</span>/src/java.desktop/share/native/liblcms/cmstypes.c:<span class="number">3441</span>:<span class="number">132</span>: error: parameter <span class="string">&#x27;SizeOfTag&#x27;</span> set but not used [-Werror,-Wunused-but-set-parameter]</span><br><span class="line"><span class="keyword">void</span> *Type_ProfileSequenceId_Read(struct _cms_typehandler_struct* self, cmsIOHANDLER* io, cmsUInt32Number* nItems, cmsUInt32Number SizeOfTag)</span><br><span class="line">                                                                                                                                   ^</span><br><span class="line">/Users/godwit/Source/openjdk-<span class="number">18</span>+<span class="number">36</span>/src/java.desktop/share/native/liblcms/cmstypes.c:<span class="number">5137</span>:<span class="number">125</span>: error: parameter <span class="string">&#x27;SizeOfTag&#x27;</span> set but not used [-Werror,-Wunused-but-set-parameter]</span><br><span class="line"><span class="keyword">void</span> *Type_Dictionary_Read(struct _cms_typehandler_struct* self, cmsIOHANDLER* io, cmsUInt32Number* nItems, cmsUInt32Number SizeOfTag)</span><br><span class="line">                                                                                                                            ^</span><br><span class="line"><span class="number">2</span> errors generated.</span><br><span class="line"></span><br><span class="line">* All command lines available <span class="keyword">in</span> /Users/godwit/Source/openjdk-<span class="number">18</span>+<span class="number">36</span>/build/macosx-aarch64-server-release/make-support/failure-logs.</span><br><span class="line">=== End <span class="keyword">of</span> repeated output ===</span><br><span class="line"></span><br><span class="line">### 解决方法：--disable-warnings-as-errors</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-3-配置成功"><a href="#3-1-3-配置成功" class="headerlink" title="3.1.3 配置成功"></a>3.1.3 配置成功</h3><p>出现以下输出，说明配置成功。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">......</span><br><span class="line">====================================================</span><br><span class="line">A <span class="keyword">new</span> configuration has been successfully created <span class="keyword">in</span></span><br><span class="line">/Users/godwit/Source/openjdk-<span class="number">18</span>+<span class="number">36</span>/build/macosx-aarch64-server-release</span><br><span class="line">using <span class="keyword">default</span> settings.</span><br><span class="line"></span><br><span class="line">Configuration summary:</span><br><span class="line">* Name:           macosx-aarch64-server-release</span><br><span class="line">* Debug level:    release</span><br><span class="line">* HS debug level: product</span><br><span class="line">* JVM variants:   server</span><br><span class="line">* JVM features:   server: <span class="string">&#x27;cds compiler1 compiler2 dtrace epsilongc g1gc jfr jni-check jvmci jvmti management nmt parallelgc serialgc services shenandoahgc vm-structs zgc&#x27;</span></span><br><span class="line">* OpenJDK target: OS: macosx, CPU architecture: aarch64, address length: <span class="number">64</span></span><br><span class="line">* Version string: <span class="number">18</span>-internal+<span class="number">0</span>-adhoc.godwit.openjdk-<span class="number">1836</span> (<span class="number">18</span>-internal)</span><br><span class="line"></span><br><span class="line">Tools summary:</span><br><span class="line">* Boot JDK:       java version <span class="string">&quot;17.0.2&quot;</span> <span class="number">2022</span>-<span class="number">01</span>-<span class="number">18</span> LTS Java(TM) SE Runtime Environment (build <span class="number">17.0</span><span class="number">.2</span>+<span class="number">8</span>-LTS-<span class="number">86</span>) Java HotSpot(TM) <span class="number">64</span>-Bit Server VM (build <span class="number">17.0</span><span class="number">.2</span>+<span class="number">8</span>-LTS-<span class="number">86</span>, mixed mode, sharing) (at /Library/Java/JavaVirtualMachines/jdk-<span class="number">17.0</span><span class="number">.2</span>.jdk/Contents/Home)</span><br><span class="line">* Toolchain:      clang (clang/LLVM <span class="keyword">from</span> Xcode <span class="number">13.3</span>)</span><br><span class="line">* C Compiler:     Version <span class="number">13.1</span><span class="number">.6</span> (at /usr/bin/clang)</span><br><span class="line">* C++ Compiler:   Version <span class="number">13.1</span><span class="number">.6</span> (at /usr/bin/clang++)</span><br><span class="line"></span><br><span class="line">Build performance summary:</span><br><span class="line">* Build jobs:     <span class="number">10</span></span><br><span class="line">* Memory limit:   <span class="number">32768</span> MB</span><br></pre></td></tr></table></figure>
+<h1 id="4-编译"><a href="#4-编译" class="headerlink" title="4. 编译"></a>4. 编译</h1><h2 id="4-1-make"><a href="#4-1-make" class="headerlink" title="4.1 make"></a>4.1 make</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">godwit@Firebase  ~<span class="regexp">/Source/</span>openjdk-<span class="number">18</span>+<span class="number">36</span>  make all</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-错误-guarantee-val-lt-1ULL-lt-lt-nbits-failed-Field-too-big-for-insn"><a href="#4-2-错误-guarantee-val-lt-1ULL-lt-lt-nbits-failed-Field-too-big-for-insn" class="headerlink" title="4.2 错误 - guarantee(val &lt; (1ULL &lt;&lt; nbits)) failed: Field too big for insn"></a>4.2 错误 - guarantee(val &lt; (1ULL &lt;&lt; nbits)) failed: Field too big for insn</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">=== Output <span class="keyword">from</span> failing command(s) repeated here ===</span><br><span class="line">* For target jdk__optimize_image_exec:</span><br><span class="line">#</span><br><span class="line"># A fatal error has been detected by the Java Runtime Environment:</span><br><span class="line">#</span><br><span class="line">#  Internal Error (assembler_aarch64.hpp:250), pid=72987, tid=9731</span><br><span class="line">#  guarantee(val &lt; (1ULL &lt;&lt; nbits)) failed: Field too big for insn</span><br><span class="line">#</span><br><span class="line"># JRE version:  (18.0) (build )</span><br><span class="line"># Java VM: OpenJDK 64-Bit Server VM (18-internal+0-adhoc.godwit.openjdk-1836, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, bsd-aarch64)</span><br><span class="line"># No core dump will be written. Core dumps have been disabled. To enable core dumping, try &quot;ulimit -c unlimited&quot; before starting Java again</span><br><span class="line">#</span><br><span class="line"># An error report file with more information is saved as:</span><br><span class="line"># /Users/godwit/Source/openjdk-18+36/make/hs_err_pid72987.log</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">* All command lines available <span class="keyword">in</span> /Users/godwit/Source/openjdk-<span class="number">18</span>+<span class="number">36</span>/build/macosx-aarch64-server-release/make-support/failure-logs.</span><br><span class="line">=== End <span class="keyword">of</span> repeated output ===</span><br><span class="line"></span><br><span class="line">No indication <span class="keyword">of</span> failed target found.</span><br><span class="line">Hint: Try searching the build log <span class="keyword">for</span> <span class="string">&#x27;] Error&#x27;</span>.</span><br><span class="line">Hint: See doc/building.html#troubleshooting <span class="keyword">for</span> assistance.</span><br><span class="line"></span><br><span class="line">make[<span class="number">1</span>]: *** [main] <span class="built_in">Error</span> <span class="number">2</span></span><br><span class="line">make: *** [all] <span class="built_in">Error</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">可以根据commit修改一下src/hotspot/cpu/aarch64/immediate_aarch64.cpp</span><br><span class="line">// src/hotspot/cpu/aarch64/immediate_aarch64.cpp </span><br><span class="line">uint64_t replicate(uint64_t bits, int nbits, int count)</span><br><span class="line">&#123;</span><br><span class="line">  // 在函数开头，添加下main代码 </span><br><span class="line">  assert(count &gt; 0, <span class="string">&quot;must be&quot;</span>);</span><br><span class="line">  assert(nbits &gt; 0, <span class="string">&quot;must be&quot;</span>);</span><br><span class="line">  assert(count * nbits &lt;= 64, <span class="string">&quot;must be&quot;</span>);</span><br><span class="line"></span><br><span class="line">  // Special <span class="keyword">case</span> nbits == 64 since the <span class="built_in">shift</span> below with that nbits value</span><br><span class="line">  // would result <span class="keyword">in</span> undefined behavior.</span><br><span class="line">  <span class="keyword">if</span> (nbits == 64) &#123;</span><br><span class="line">    <span class="built_in">return</span> bits;</span><br><span class="line">  &#125;</span><br><span class="line">  //-----------------------</span><br><span class="line"></span><br><span class="line">  uint64_t result = 0;</span><br><span class="line">  uint64_t mask = ones(nbits);</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-编译成功"><a href="#4-3-编译成功" class="headerlink" title="4.3 编译成功"></a>4.3 编译成功</h2><p>编译成功后，在build/macosx-aarch64-server-slowdebug/jdk/bin目录下执行：java -version</p>
+<p>能够看到正常输出。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">✘ godwit@Firebase  ~<span class="regexp">/Source/</span>openjdk-<span class="number">18</span>+<span class="number">36</span>/build/macosx-aarch64-server-slowdebug/jdk/bin  java -version</span><br><span class="line">openjdk version <span class="string">&quot;1.8.0_322&quot;</span></span><br><span class="line">OpenJDK Runtime Environment (Zulu <span class="number">8.60</span><span class="number">.0</span><span class="number">.21</span>-CA-macos-aarch64) (build <span class="number">1.8</span><span class="number">.0_322</span>-b06)</span><br><span class="line">OpenJDK <span class="number">64</span>-Bit Server VM (Zulu <span class="number">8.60</span><span class="number">.0</span><span class="number">.21</span>-CA-macos-aarch64) (build <span class="number">25.322</span>-b06, mixed mode)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：JDK源代码编译</li>
+        <li>Post author：Mayfly Game</li>
+        <li>Create time：2022-05-04 21:23:08</li>
+        <li>
+            Post link：https://www.mayflygame.com/2022/05/04/JDK源代码编译/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/04/26/%E6%B6%88%E7%81%AD%E5%88%A9%E7%94%A8Hadoop-Yarn%E6%9C%AA%E6%8E%88%E6%9D%83%E6%BC%8F%E6%B4%9E%E6%8C%96%E7%9F%BF%E7%97%85%E6%AF%92/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">消灭利用Hadoop Yarn未授权漏洞挖矿病毒</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'eTJNtjwLG3WU6vo2R8rdpgBg-gzGzoHsz',
+                    appKey: 'C6u43EDPpMkduG7tNj0YlHVy',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Mayfly Game';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Mayfly Game</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.0</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91"><span class="nav-number">1.</span> <span class="nav-text">JDK源码编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%BA%90%E7%A0%81%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">1. 源码准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%BA%90%E7%A0%81%E7%89%88%E6%9C%AC%E5%8F%8A%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 源码版本及下载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">2. 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Bootstrap-JDK"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Bootstrap JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%85%B6%E4%BB%96%E4%BE%9D%E8%B5%96%E5%BA%93"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 其他依赖库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%BC%96%E8%AF%91"><span class="nav-number">4.</span> <span class="nav-text">3. 编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E9%94%99%E8%AF%AF1-No-xcodebuild-tool-and-no-system-framework-headers-found"><span class="nav-number">4.1.1.</span> <span class="nav-text">3.1.1 错误1 - No xcodebuild tool and no system framework headers found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E9%94%99%E8%AF%AF2-error-parameter-%E2%80%98SizeOfTag%E2%80%99-set-but-not-used"><span class="nav-number">4.1.2.</span> <span class="nav-text">3.1.2 错误2 - error: parameter ‘SizeOfTag’ set but not used</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-%E9%85%8D%E7%BD%AE%E6%88%90%E5%8A%9F"><span class="nav-number">4.1.3.</span> <span class="nav-text">3.1.3 配置成功</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BC%96%E8%AF%91"><span class="nav-number">5.</span> <span class="nav-text">4. 编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-make"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 make</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E9%94%99%E8%AF%AF-guarantee-val-lt-1ULL-lt-lt-nbits-failed-Field-too-big-for-insn"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 错误 - guarantee(val &lt; (1ULL &lt;&lt; nbits)) failed: Field too big for insn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E7%BC%96%E8%AF%91%E6%88%90%E5%8A%9F"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 编译成功</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.0/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
